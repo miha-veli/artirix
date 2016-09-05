@@ -1,0 +1,29 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Metadata": {
+    "AWS::CloudFormation::Designer": {
+      "36f27655-c4ae-407e-9185-381293f6bb93": {
+        "size": {
+          "width": 590,
+          "height": 380
+        },
+        "position": {
+          "x": 130,
+          "y": 110
+        },
+        "z": 0
+      }
+    }
+  },
+  "Resources": {
+    "elasticSearchVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {},
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "36f27655-c4ae-407e-9185-381293f6bb93"
+        }
+      }
+    }
+  }
+}
