@@ -66,7 +66,11 @@
         },
         "z": 2,
         "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
-        "embeds": []
+        "embeds": [
+          "6bb5f648-cc4b-443d-a76d-ed727afa58d4",
+          "a5f4cc39-425f-45e7-9bc7-b42ac1e0532d",
+          "88279449-ada4-404c-8850-88f539acedbb"
+        ]
       },
       "dea40fb2-4fff-4269-b920-c2a835260ce2": {
         "size": {
@@ -144,7 +148,46 @@
         "target": {
           "id": "9c17329e-4f0e-498c-83c3-c039080890ae"
         },
-        "z": 4
+        "z": 2
+      },
+      "88279449-ada4-404c-8850-88f539acedbb": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 210,
+          "y": 390
+        },
+        "z": 3,
+        "parent": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
+        "embeds": []
+      },
+      "a5f4cc39-425f-45e7-9bc7-b42ac1e0532d": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 310,
+          "y": 390
+        },
+        "z": 3,
+        "parent": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
+        "embeds": []
+      },
+      "6bb5f648-cc4b-443d-a76d-ed727afa58d4": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 410,
+          "y": 390
+        },
+        "z": 3,
+        "parent": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
+        "embeds": []
       }
     }
   },
@@ -316,6 +359,177 @@
           "id": "ef869242-a412-4346-973c-a531e3d98d8a"
         }
       }
+    },
+    "elasticSearch1": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "elasticSearchPrivateSubnet"
+        },
+        "ImageId": {
+          "Ref": "elasticSearchAMI"
+        },
+        "InstanceType": {
+          "Ref": "elasticSearchInstanceType"
+        },
+        "KeyName": {
+          "Ref": "keyPairName"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "es1.example.com"
+          },
+          {
+            "Key": "system",
+            "Value": "elasticsearch-node"
+          },
+          {
+            "Key": "application",
+            "Value": "elasticsearch-cluster"
+          },
+          {
+            "Key": "env",
+            "Value": {
+              "Ref": "env"
+            }
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "DeleteOnTermination": "true",
+              "VolumeSize": "30",
+              "VolumeType": "gp2"
+            }
+          }
+        ],
+        "SecurityGroupIds": [
+          {
+            "Ref": "elasticSearchSG"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "88279449-ada4-404c-8850-88f539acedbb"
+        }
+      }
+    },
+    "elasticSearch2": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "elasticSearchPrivateSubnet"
+        },
+        "ImageId": {
+          "Ref": "elasticSearchAMI"
+        },
+        "InstanceType": {
+          "Ref": "elasticSearchInstanceType"
+        },
+        "KeyName": {
+          "Ref": "keyPairName"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "es2.example.com"
+          },
+          {
+            "Key": "system",
+            "Value": "elasticsearch-node"
+          },
+          {
+            "Key": "application",
+            "Value": "elasticsearch-cluster"
+          },
+          {
+            "Key": "env",
+            "Value": {
+              "Ref": "env"
+            }
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "DeleteOnTermination": "true",
+              "VolumeSize": "30",
+              "VolumeType": "gp2"
+            }
+          }
+        ],
+        "SecurityGroupIds": [
+          {
+            "Ref": "elasticSearchSG"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a5f4cc39-425f-45e7-9bc7-b42ac1e0532d"
+        }
+      }
+    },
+    "elasticSearch3": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "elasticSearchPrivateSubnet"
+        },
+        "ImageId": {
+          "Ref": "elasticSearchAMI"
+        },
+        "InstanceType": {
+          "Ref": "elasticSearchInstanceType"
+        },
+        "KeyName": {
+          "Ref": "keyPairName"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "es3.example.com"
+          },
+          {
+            "Key": "system",
+            "Value": "elasticsearch-node"
+          },
+          {
+            "Key": "application",
+            "Value": "elasticsearch-cluster"
+          },
+          {
+            "Key": "env",
+            "Value": {
+              "Ref": "env"
+            }
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "DeleteOnTermination": "true",
+              "VolumeSize": "30",
+              "VolumeType": "gp2"
+            }
+          }
+        ],
+        "SecurityGroupIds": [
+          {
+            "Ref": "elasticSearchSG"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "6bb5f648-cc4b-443d-a76d-ed727afa58d4"
+        }
+      }
     }
   },
   "Parameters": {
@@ -329,6 +543,21 @@
       "Type": "String"
     },
     "elasticSearchCIDR": {
+      "Type": "String"
+    },
+    "elasticSearchAMI": {
+      "Type": "String"
+    },
+    "elasticSearchInstanceType": {
+      "Type": "String"
+    },
+    "env": {
+      "Type": "String"
+    },
+    "keyPairName": {
+      "Type": "String"
+    },
+    "elasticSearchSG": {
       "Type": "String"
     }
   }
