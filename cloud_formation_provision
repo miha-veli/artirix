@@ -4,15 +4,18 @@
     "AWS::CloudFormation::Designer": {
       "36f27655-c4ae-407e-9185-381293f6bb93": {
         "size": {
-          "width": 590,
-          "height": 380
+          "width": 600,
+          "height": 390
         },
         "position": {
-          "x": 130,
-          "y": 110
+          "x": 120,
+          "y": 120
         },
-        "z": 0,
-        "embeds": []
+        "z": 1,
+        "embeds": [
+          "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
+          "9c17329e-4f0e-498c-83c3-c039080890ae"
+        ]
       },
       "efdb307b-1972-4dd1-8755-85726629a1d5": {
         "size": {
@@ -20,10 +23,11 @@
           "height": 60
         },
         "position": {
-          "x": 400,
-          "y": 0
+          "x": 390,
+          "y": -10
         },
-        "z": 0
+        "z": 1,
+        "embeds": []
       },
       "d03f5fa0-6289-41e3-95ec-5c2d1a29454b": {
         "source": {
@@ -33,6 +37,32 @@
           "id": "36f27655-c4ae-407e-9185-381293f6bb93"
         },
         "z": 1
+      },
+      "9c17329e-4f0e-498c-83c3-c039080890ae": {
+        "size": {
+          "width": 330,
+          "height": 120
+        },
+        "position": {
+          "x": 240,
+          "y": 150
+        },
+        "z": 2,
+        "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
+        "embeds": []
+      },
+      "86f119d8-9e7c-4a19-b17b-ed664b9e73f0": {
+        "size": {
+          "width": 350,
+          "height": 140
+        },
+        "position": {
+          "x": 230,
+          "y": 330
+        },
+        "z": 2,
+        "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
+        "embeds": []
       }
     }
   },
@@ -70,6 +100,67 @@
           "id": "efdb307b-1972-4dd1-8755-85726629a1d5"
         }
       }
+    },
+    "elasticSearchPublicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "elasticSearchVPC"
+        },
+        "AvailabilityZone": {
+          "Ref": "availabilityZone"
+        },
+        "CidrBlock": {
+          "Ref": "publicESCIDR"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "ElasticSearch public network"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "9c17329e-4f0e-498c-83c3-c039080890ae"
+        }
+      }
+    },
+    "elasticSearchPrivateSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "elasticSearchVPC"
+        },
+        "AvailabilityZone": {
+          "Ref": "availabilityZone"
+        },
+        "CidrBlock": {
+          "Ref": "privateESCIDR"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "ElasticSearch private network"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0"
+        }
+      }
+    }
+  },
+  "Parameters": {
+    "availabilityZone": {
+      "Type": "String"
+    },
+    "privateESCIDR": {
+      "Type": "String"
+    },
+    "publicESCIDR": {
+      "Type": "String"
     }
   }
 }
