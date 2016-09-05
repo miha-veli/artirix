@@ -13,6 +13,7 @@
         },
         "z": 1,
         "embeds": [
+          "a3d5bcd2-27eb-4fa1-a482-660bd25e6d93",
           "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
           "9c17329e-4f0e-498c-83c3-c039080890ae"
         ]
@@ -95,6 +96,55 @@
         "isrelatedto": [
           "dea40fb2-4fff-4269-b920-c2a835260ce2"
         ]
+      },
+      "a3d5bcd2-27eb-4fa1-a482-660bd25e6d93": {
+        "size": {
+          "width": 120,
+          "height": 120
+        },
+        "position": {
+          "x": 490,
+          "y": 170
+        },
+        "z": 2,
+        "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
+        "embeds": [
+          "1abf5360-b03d-4e60-81d3-ae316698c8cc"
+        ]
+      },
+      "1abf5360-b03d-4e60-81d3-ae316698c8cc": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 520,
+          "y": 200
+        },
+        "z": 3,
+        "parent": "a3d5bcd2-27eb-4fa1-a482-660bd25e6d93",
+        "embeds": [],
+        "references": [
+          "efdb307b-1972-4dd1-8755-85726629a1d5"
+        ]
+      },
+      "e2ddbc28-69e3-43df-8b74-78c38037c746": {
+        "source": {
+          "id": "1abf5360-b03d-4e60-81d3-ae316698c8cc"
+        },
+        "target": {
+          "id": "efdb307b-1972-4dd1-8755-85726629a1d5"
+        },
+        "z": 4
+      },
+      "ef869242-a412-4346-973c-a531e3d98d8a": {
+        "source": {
+          "id": "a3d5bcd2-27eb-4fa1-a482-660bd25e6d93"
+        },
+        "target": {
+          "id": "9c17329e-4f0e-498c-83c3-c039080890ae"
+        },
+        "z": 4
       }
     }
   },
@@ -218,6 +268,52 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "7ee2e03c-6a8b-4142-80d6-ae4cb40ab631"
+        }
+      }
+    },
+    "elasticSearchPublicRoutingTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "elasticSearchVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a3d5bcd2-27eb-4fa1-a482-660bd25e6d93"
+        }
+      }
+    },
+    "elasticSearchPublicToInternet": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "elasticSearchPublicRoutingTable"
+        },
+        "GatewayId": {
+          "Ref": "elasticSearchIGW"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "1abf5360-b03d-4e60-81d3-ae316698c8cc"
+        }
+      }
+    },
+    "EC2SRTA2Z4YE": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "elasticSearchPublicRoutingTable"
+        },
+        "SubnetId": {
+          "Ref": "elasticSearchPublicSubnet"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "ef869242-a412-4346-973c-a531e3d98d8a"
         }
       }
     }
