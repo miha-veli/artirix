@@ -382,6 +382,7 @@
         },
         "z": 0,
         "embeds": [
+          "f1a4dec2-a9cc-4087-9a66-1b9f24d1f80e",
           "551146b6-9da7-4507-b56a-169a698b8a74",
           "e34b83d8-b7cc-4f09-9e93-ad43a4687f39"
         ]
@@ -459,6 +460,76 @@
         },
         "target": {
           "id": "551146b6-9da7-4507-b56a-169a698b8a74"
+        },
+        "z": 4
+      },
+      "0ce14ddf-1960-435a-a4f4-5212a93321ad": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1310,
+          "y": 10
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "a5158102-ea7d-4b41-8efa-f94cc5ff8c0f": {
+        "source": {
+          "id": "0ce14ddf-1960-435a-a4f4-5212a93321ad"
+        },
+        "target": {
+          "id": "a18d69fd-8bab-477b-b86c-6350da5fdd1a"
+        },
+        "z": 0
+      },
+      "f1a4dec2-a9cc-4087-9a66-1b9f24d1f80e": {
+        "size": {
+          "width": 240,
+          "height": 130
+        },
+        "position": {
+          "x": 1040,
+          "y": 180
+        },
+        "z": 1,
+        "parent": "a18d69fd-8bab-477b-b86c-6350da5fdd1a",
+        "embeds": [
+          "ce415937-fc09-48d1-98fd-809f3e05005e"
+        ]
+      },
+      "b03e3f82-bf90-4607-ab2b-eb6b54826fd6": {
+        "source": {
+          "id": "f1a4dec2-a9cc-4087-9a66-1b9f24d1f80e"
+        },
+        "target": {
+          "id": "e34b83d8-b7cc-4f09-9e93-ad43a4687f39"
+        },
+        "z": 1
+      },
+      "ce415937-fc09-48d1-98fd-809f3e05005e": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1190,
+          "y": 210
+        },
+        "z": 2,
+        "parent": "f1a4dec2-a9cc-4087-9a66-1b9f24d1f80e",
+        "embeds": [],
+        "references": [
+          "0ce14ddf-1960-435a-a4f4-5212a93321ad"
+        ]
+      },
+      "ae714f4f-150a-4131-b713-6dde363fa0f1": {
+        "source": {
+          "id": "ce415937-fc09-48d1-98fd-809f3e05005e"
+        },
+        "target": {
+          "id": "0ce14ddf-1960-435a-a4f4-5212a93321ad"
         },
         "z": 4
       }
@@ -1076,6 +1147,77 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "551146b6-9da7-4507-b56a-169a698b8a74"
+        }
+      }
+    },
+    "EC2IG38AZP": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {},
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "0ce14ddf-1960-435a-a4f4-5212a93321ad"
+        }
+      }
+    },
+    "EC2VPCG2VXMB": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "EC2IG38AZP"
+        },
+        "VpcId": {
+          "Ref": "jumpVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a5158102-ea7d-4b41-8efa-f94cc5ff8c0f"
+        }
+      }
+    },
+    "jumpPublicRoutingTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "jumpVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "f1a4dec2-a9cc-4087-9a66-1b9f24d1f80e"
+        }
+      }
+    },
+    "EC2SRTA2CFC4": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "jumpPublicRoutingTable"
+        },
+        "SubnetId": {
+          "Ref": "jumpPublic"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b03e3f82-bf90-4607-ab2b-eb6b54826fd6"
+        }
+      }
+    },
+    "jumpToInternet": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "jumpPublicRoutingTable"
+        },
+        "GatewayId": {
+          "Ref": "EC2IG38AZP"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "ce415937-fc09-48d1-98fd-809f3e05005e"
         }
       }
     }
