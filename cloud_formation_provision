@@ -253,7 +253,7 @@
       },
       "7d37bee4-c21b-4c5e-b642-1bfaaa7f1754": {
         "size": {
-          "width": 129.18750484336726,
+          "width": 210,
           "height": 140
         },
         "position": {
@@ -263,6 +263,7 @@
         "z": 2,
         "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
         "embeds": [
+          "6c1ca4ea-f6ac-4359-b417-c18a7e0dec76",
           "edc623d7-287d-463c-8da4-d26285107199"
         ]
       },
@@ -377,8 +378,8 @@
           "height": 320
         },
         "position": {
-          "x": 980,
-          "y": 130
+          "x": 1010,
+          "y": 260
         },
         "z": 0,
         "embeds": [
@@ -393,8 +394,8 @@
           "height": 130
         },
         "position": {
-          "x": 1340,
-          "y": 180
+          "x": 1370,
+          "y": 310
         },
         "z": 1,
         "parent": "a18d69fd-8bab-477b-b86c-6350da5fdd1a",
@@ -409,8 +410,8 @@
           "height": 60
         },
         "position": {
-          "x": 1390,
-          "y": 220
+          "x": 1420,
+          "y": 350
         },
         "z": 2,
         "parent": "e34b83d8-b7cc-4f09-9e93-ad43a4687f39",
@@ -425,8 +426,8 @@
           "height": 60
         },
         "position": {
-          "x": 1510,
-          "y": 220
+          "x": 1540,
+          "y": 350
         },
         "z": 2,
         "parent": "e34b83d8-b7cc-4f09-9e93-ad43a4687f39",
@@ -447,8 +448,8 @@
           "height": 60
         },
         "position": {
-          "x": 1390,
-          "y": 350
+          "x": 1420,
+          "y": 480
         },
         "z": 1,
         "parent": "a18d69fd-8bab-477b-b86c-6350da5fdd1a",
@@ -469,8 +470,8 @@
           "height": 60
         },
         "position": {
-          "x": 1310,
-          "y": 10
+          "x": 1340,
+          "y": 90
         },
         "z": 0,
         "embeds": []
@@ -490,12 +491,13 @@
           "height": 130
         },
         "position": {
-          "x": 1040,
-          "y": 180
+          "x": 1070,
+          "y": 310
         },
         "z": 1,
         "parent": "a18d69fd-8bab-477b-b86c-6350da5fdd1a",
         "embeds": [
+          "204bcb90-a980-47be-988e-82b9cb8728ff",
           "ce415937-fc09-48d1-98fd-809f3e05005e"
         ]
       },
@@ -514,8 +516,8 @@
           "height": 60
         },
         "position": {
-          "x": 1190,
-          "y": 210
+          "x": 1220,
+          "y": 340
         },
         "z": 2,
         "parent": "f1a4dec2-a9cc-4087-9a66-1b9f24d1f80e",
@@ -532,6 +534,65 @@
           "id": "0ce14ddf-1960-435a-a4f4-5212a93321ad"
         },
         "z": 4
+      },
+      "6764dff7-08a4-419e-8209-f3bbf436cfa2": {
+        "source": {
+          "id": "36f27655-c4ae-407e-9185-381293f6bb93"
+        },
+        "target": {
+          "id": "a18d69fd-8bab-477b-b86c-6350da5fdd1a"
+        },
+        "z": 1
+      },
+      "204bcb90-a980-47be-988e-82b9cb8728ff": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1110,
+          "y": 340
+        },
+        "z": 2,
+        "parent": "f1a4dec2-a9cc-4087-9a66-1b9f24d1f80e",
+        "embeds": [],
+        "references": [
+          "6764dff7-08a4-419e-8209-f3bbf436cfa2"
+        ]
+      },
+      "6c1ca4ea-f6ac-4359-b417-c18a7e0dec76": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 690,
+          "y": 510
+        },
+        "z": 3,
+        "parent": "7d37bee4-c21b-4c5e-b642-1bfaaa7f1754",
+        "embeds": [],
+        "references": [
+          "6764dff7-08a4-419e-8209-f3bbf436cfa2"
+        ]
+      },
+      "ee612472-ef50-47e5-bc5b-f1cbd4c74a12": {
+        "source": {
+          "id": "6c1ca4ea-f6ac-4359-b417-c18a7e0dec76"
+        },
+        "target": {
+          "id": "6764dff7-08a4-419e-8209-f3bbf436cfa2"
+        },
+        "z": 4
+      },
+      "797a7c67-8e47-450c-bd9b-c1ffe8a3a875": {
+        "source": {
+          "id": "204bcb90-a980-47be-988e-82b9cb8728ff"
+        },
+        "target": {
+          "id": "6764dff7-08a4-419e-8209-f3bbf436cfa2"
+        },
+        "z": 5
       }
     }
   },
@@ -1218,6 +1279,54 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "ce415937-fc09-48d1-98fd-809f3e05005e"
+        }
+      }
+    },
+    "EC2VPCPAB2P": {
+      "Type": "AWS::EC2::VPCPeeringConnection",
+      "Properties": {
+        "VpcId": {
+          "Ref": "elasticSearchVPC"
+        },
+        "PeerVpcId": {
+          "Ref": "jumpVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "6764dff7-08a4-419e-8209-f3bbf436cfa2"
+        }
+      }
+    },
+    "jumpToESVPC": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "jumpPublicRoutingTable"
+        },
+        "VpcPeeringConnectionId": {
+          "Ref": "EC2VPCPAB2P"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "204bcb90-a980-47be-988e-82b9cb8728ff"
+        }
+      }
+    },
+    "EStoJumpVPC": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "elasticSearchPrivateRoutingTable"
+        },
+        "VpcPeeringConnectionId": {
+          "Ref": "EC2VPCPAB2P"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "6c1ca4ea-f6ac-4359-b417-c18a7e0dec76"
         }
       }
     }
