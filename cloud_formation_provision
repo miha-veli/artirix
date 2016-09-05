@@ -382,6 +382,7 @@
         },
         "z": 0,
         "embeds": [
+          "551146b6-9da7-4507-b56a-169a698b8a74",
           "e34b83d8-b7cc-4f09-9e93-ad43a4687f39"
         ]
       },
@@ -396,7 +397,70 @@
         },
         "z": 1,
         "parent": "a18d69fd-8bab-477b-b86c-6350da5fdd1a",
+        "embeds": [
+          "f9c7fda5-b25a-42ba-9dba-ed7abe61e85a",
+          "d74a4cb2-752b-4ee2-b6f6-88e33c30dfd4"
+        ]
+      },
+      "d74a4cb2-752b-4ee2-b6f6-88e33c30dfd4": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1390,
+          "y": 220
+        },
+        "z": 2,
+        "parent": "e34b83d8-b7cc-4f09-9e93-ad43a4687f39",
+        "embeds": [],
+        "ismemberof": [
+          "551146b6-9da7-4507-b56a-169a698b8a74"
+        ]
+      },
+      "f9c7fda5-b25a-42ba-9dba-ed7abe61e85a": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1510,
+          "y": 220
+        },
+        "z": 2,
+        "parent": "e34b83d8-b7cc-4f09-9e93-ad43a4687f39",
         "embeds": []
+      },
+      "4a1a9faa-5c5c-40b2-8bbf-ccd05e679abe": {
+        "source": {
+          "id": "f9c7fda5-b25a-42ba-9dba-ed7abe61e85a"
+        },
+        "target": {
+          "id": "d74a4cb2-752b-4ee2-b6f6-88e33c30dfd4"
+        },
+        "z": 2
+      },
+      "551146b6-9da7-4507-b56a-169a698b8a74": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1390,
+          "y": 350
+        },
+        "z": 1,
+        "parent": "a18d69fd-8bab-477b-b86c-6350da5fdd1a",
+        "embeds": []
+      },
+      "022333b2-36b7-49ee-94f9-7fed76091477": {
+        "source": {
+          "id": "d74a4cb2-752b-4ee2-b6f6-88e33c30dfd4"
+        },
+        "target": {
+          "id": "551146b6-9da7-4507-b56a-169a698b8a74"
+        },
+        "z": 4
       }
     }
   },
@@ -912,6 +976,108 @@
           "id": "e34b83d8-b7cc-4f09-9e93-ad43a4687f39"
         }
       }
+    },
+    "jump": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "jumpPublic"
+        },
+        "SecurityGroupIds": [
+          {
+            "Ref": "jumpSG"
+          }
+        ],
+        "ImageId": {
+          "Ref": "jumpAMI"
+        },
+        "InstanceType": {
+          "Ref": "jumpInstanceType"
+        },
+        "KeyName": {
+          "Ref": "keyPairName"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "jump.example.com"
+          },
+          {
+            "Key": "system",
+            "Value": "jump"
+          },
+          {
+            "Key": "application",
+            "Value": "bastion"
+          },
+          {
+            "Key": "env",
+            "Value": {
+              "Ref": "env"
+            }
+          }
+        ],
+        "BlockDeviceMappings": [
+          {
+            "DeviceName": "/dev/sda1",
+            "Ebs": {
+              "DeleteOnTermination": "true",
+              "VolumeSize": "30",
+              "VolumeType": "gp2"
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "d74a4cb2-752b-4ee2-b6f6-88e33c30dfd4"
+        }
+      }
+    },
+    "EC2EIPA1IKOY": {
+      "Type": "AWS::EC2::EIPAssociation",
+      "Properties": {
+        "AllocationId": {
+          "Ref": "jumpEIP"
+        },
+        "InstanceId": {
+          "Ref": "jump"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "4a1a9faa-5c5c-40b2-8bbf-ccd05e679abe"
+        }
+      }
+    },
+    "jumpEIP": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {},
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "f9c7fda5-b25a-42ba-9dba-ed7abe61e85a"
+        }
+      }
+    },
+    "jumpSG": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {
+          "Ref": "jumpVPC"
+        },
+        "GroupDescription": "jump allow all",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "-1"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "551146b6-9da7-4507-b56a-169a698b8a74"
+        }
+      }
     }
   },
   "Parameters": {
@@ -943,6 +1109,12 @@
       "Type": "String"
     },
     "publicjumpCIDR": {
+      "Type": "String"
+    },
+    "jumpAMI": {
+      "Type": "String"
+    },
+    "jumpInstanceType": {
       "Type": "String"
     }
   }
