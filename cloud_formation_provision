@@ -370,6 +370,33 @@
           "id": "b8e5368e-f7ee-4fc0-90a9-319d4c4382f5"
         },
         "z": 4
+      },
+      "a18d69fd-8bab-477b-b86c-6350da5fdd1a": {
+        "size": {
+          "width": 710,
+          "height": 320
+        },
+        "position": {
+          "x": 980,
+          "y": 130
+        },
+        "z": 0,
+        "embeds": [
+          "e34b83d8-b7cc-4f09-9e93-ad43a4687f39"
+        ]
+      },
+      "e34b83d8-b7cc-4f09-9e93-ad43a4687f39": {
+        "size": {
+          "width": 280,
+          "height": 130
+        },
+        "position": {
+          "x": 1340,
+          "y": 180
+        },
+        "z": 1,
+        "parent": "a18d69fd-8bab-477b-b86c-6350da5fdd1a",
+        "embeds": []
       }
     }
   },
@@ -850,6 +877,41 @@
           "id": "b8e5368e-f7ee-4fc0-90a9-319d4c4382f5"
         }
       }
+    },
+    "jumpVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "jumpCIDR"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "jump VPC"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a18d69fd-8bab-477b-b86c-6350da5fdd1a"
+        }
+      }
+    },
+    "jumpPublic": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "VpcId": {
+          "Ref": "jumpVPC"
+        },
+        "CidrBlock": {
+          "Ref": "publicjumpCIDR"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "e34b83d8-b7cc-4f09-9e93-ad43a4687f39"
+        }
+      }
     }
   },
   "Parameters": {
@@ -875,6 +937,12 @@
       "Type": "String"
     },
     "keyPairName": {
+      "Type": "String"
+    },
+    "jumpCIDR": {
+      "Type": "String"
+    },
+    "publicjumpCIDR": {
       "Type": "String"
     }
   }
