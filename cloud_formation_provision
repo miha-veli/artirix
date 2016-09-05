@@ -101,7 +101,17 @@
   "Resources": {
     "elasticSearchVPC": {
       "Type": "AWS::EC2::VPC",
-      "Properties": {},
+      "Properties": {
+        "CidrBlock": {
+          "Ref": "elasticSearchCIDR"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Elastic Search VPC"
+          }
+        ]
+      },
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "36f27655-c4ae-407e-9185-381293f6bb93"
@@ -220,6 +230,9 @@
       "Type": "String"
     },
     "publicESCIDR": {
+      "Type": "String"
+    },
+    "elasticSearchCIDR": {
       "Type": "String"
     }
   }
