@@ -11,7 +11,28 @@
           "x": 130,
           "y": 110
         },
+        "z": 0,
+        "embeds": []
+      },
+      "efdb307b-1972-4dd1-8755-85726629a1d5": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 400,
+          "y": 0
+        },
         "z": 0
+      },
+      "d03f5fa0-6289-41e3-95ec-5c2d1a29454b": {
+        "source": {
+          "id": "efdb307b-1972-4dd1-8755-85726629a1d5"
+        },
+        "target": {
+          "id": "36f27655-c4ae-407e-9185-381293f6bb93"
+        },
+        "z": 1
       }
     }
   },
@@ -22,6 +43,31 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "36f27655-c4ae-407e-9185-381293f6bb93"
+        }
+      }
+    },
+    "EC2VPCG1FYBK": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "elasticSearchIGW"
+        },
+        "VpcId": {
+          "Ref": "elasticSearchVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "d03f5fa0-6289-41e3-95ec-5c2d1a29454b"
+        }
+      }
+    },
+    "elasticSearchIGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {},
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "efdb307b-1972-4dd1-8755-85726629a1d5"
         }
       }
     }
