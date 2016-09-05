@@ -13,10 +13,12 @@
         },
         "z": 1,
         "embeds": [
+          "b8e5368e-f7ee-4fc0-90a9-319d4c4382f5",
           "7d37bee4-c21b-4c5e-b642-1bfaaa7f1754",
           "aab61a65-9b7c-4906-80f2-8eaea438557f",
           "a3d5bcd2-27eb-4fa1-a482-660bd25e6d93",
           "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
+          "c47bdcca-003b-4704-b1b3-8bc050d64085",
           "9c17329e-4f0e-498c-83c3-c039080890ae"
         ]
       },
@@ -288,6 +290,86 @@
           "id": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0"
         },
         "z": 2
+      },
+      "c47bdcca-003b-4704-b1b3-8bc050d64085": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 290,
+          "y": 370
+        },
+        "z": 2,
+        "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
+        "embeds": [],
+        "isconnectedto": [
+          "6bb5f648-cc4b-443d-a76d-ed727afa58d4",
+          "a5f4cc39-425f-45e7-9bc7-b42ac1e0532d",
+          "88279449-ada4-404c-8850-88f539acedbb",
+          "86f119d8-9e7c-4a19-b17b-ed664b9e73f0"
+        ],
+        "ismemberof": [
+          "b8e5368e-f7ee-4fc0-90a9-319d4c4382f5"
+        ]
+      },
+      "3bd5f508-f454-4477-bddb-91596687151b": {
+        "source": {
+          "id": "c47bdcca-003b-4704-b1b3-8bc050d64085"
+        },
+        "target": {
+          "id": "6bb5f648-cc4b-443d-a76d-ed727afa58d4"
+        },
+        "z": 4
+      },
+      "c6e98883-9ba3-4558-ad0d-552e8b8a4b51": {
+        "source": {
+          "id": "c47bdcca-003b-4704-b1b3-8bc050d64085"
+        },
+        "target": {
+          "id": "a5f4cc39-425f-45e7-9bc7-b42ac1e0532d"
+        },
+        "z": 5
+      },
+      "57100106-be4c-41fd-a48e-eafd6aa6690f": {
+        "source": {
+          "id": "c47bdcca-003b-4704-b1b3-8bc050d64085"
+        },
+        "target": {
+          "id": "88279449-ada4-404c-8850-88f539acedbb"
+        },
+        "z": 6
+      },
+      "3c5bb106-7794-4dbb-93b8-ff358b0ff421": {
+        "source": {
+          "id": "c47bdcca-003b-4704-b1b3-8bc050d64085"
+        },
+        "target": {
+          "id": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0"
+        },
+        "z": 4
+      },
+      "b8e5368e-f7ee-4fc0-90a9-319d4c4382f5": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 190,
+          "y": 370
+        },
+        "z": 2,
+        "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
+        "embeds": []
+      },
+      "e3bf84b9-0309-451e-8804-8af6ced887e8": {
+        "source": {
+          "id": "c47bdcca-003b-4704-b1b3-8bc050d64085"
+        },
+        "target": {
+          "id": "b8e5368e-f7ee-4fc0-90a9-319d4c4382f5"
+        },
+        "z": 4
       }
     }
   },
@@ -696,6 +778,76 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "60aaa6dc-1a58-4292-ad04-e7c603e06e05"
+        }
+      }
+    },
+    "elasticSearchELB": {
+      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+      "Properties": {
+        "Instances": [
+          {
+            "Ref": "elasticSearch3"
+          },
+          {
+            "Ref": "elasticSearch2"
+          },
+          {
+            "Ref": "elasticSearch1"
+          }
+        ],
+        "HealthCheck": {
+          "HealthyThreshold": 2,
+          "Interval": 5,
+          "Target": "TCP:9200",
+          "Timeout": 4,
+          "UnhealthyThreshold": 2
+        },
+        "LoadBalancerName": "es-cluster",
+        "Scheme": "internet-facing",
+        "Listeners": [
+          {
+            "InstancePort": "9200",
+            "LoadBalancerPort": "9200",
+            "Protocol": "TCP",
+            "InstanceProtocol": "TCP"
+          }
+        ],
+        "Subnets": [
+          {
+            "Ref": "elasticSearchPrivateSubnet"
+          }
+        ],
+        "SecurityGroups": [
+          {
+            "Ref": "elbSG"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "c47bdcca-003b-4704-b1b3-8bc050d64085"
+        }
+      }
+    },
+    "elbSG": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "VpcId": {
+          "Ref": "elasticSearchVPC"
+        },
+        "GroupDescription": "ES ELB Allow port 9200",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "FromPort": "9200",
+            "ToPort": "9200",
+            "IpProtocol": "tcp"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b8e5368e-f7ee-4fc0-90a9-319d4c4382f5"
         }
       }
     }
