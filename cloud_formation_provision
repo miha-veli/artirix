@@ -497,8 +497,8 @@
         "z": 1,
         "parent": "a18d69fd-8bab-477b-b86c-6350da5fdd1a",
         "embeds": [
-          "204bcb90-a980-47be-988e-82b9cb8728ff",
-          "ce415937-fc09-48d1-98fd-809f3e05005e"
+          "ce415937-fc09-48d1-98fd-809f3e05005e",
+          "204bcb90-a980-47be-988e-82b9cb8728ff"
         ]
       },
       "b03e3f82-bf90-4607-ab2b-eb6b54826fd6": {
@@ -947,6 +947,12 @@
           {
             "CidrIp": {
               "Ref": "elasticSearchCIDR"
+            },
+            "IpProtocol": "-1"
+          },
+          {
+            "CidrIp": {
+              "Ref": "publicjumpCIDR"
             },
             "IpProtocol": "-1"
           }
