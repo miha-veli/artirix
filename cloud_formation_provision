@@ -40,16 +40,19 @@
       },
       "9c17329e-4f0e-498c-83c3-c039080890ae": {
         "size": {
-          "width": 330,
+          "width": 220,
           "height": 120
         },
         "position": {
-          "x": 240,
-          "y": 150
+          "x": 160,
+          "y": 170
         },
         "z": 2,
         "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
-        "embeds": []
+        "embeds": [
+          "dea40fb2-4fff-4269-b920-c2a835260ce2",
+          "7ee2e03c-6a8b-4142-80d6-ae4cb40ab631"
+        ]
       },
       "86f119d8-9e7c-4a19-b17b-ed664b9e73f0": {
         "size": {
@@ -57,12 +60,41 @@
           "height": 140
         },
         "position": {
-          "x": 230,
-          "y": 330
+          "x": 160,
+          "y": 350
         },
         "z": 2,
         "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
         "embeds": []
+      },
+      "dea40fb2-4fff-4269-b920-c2a835260ce2": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 290,
+          "y": 200
+        },
+        "z": 3,
+        "parent": "9c17329e-4f0e-498c-83c3-c039080890ae",
+        "embeds": []
+      },
+      "7ee2e03c-6a8b-4142-80d6-ae4cb40ab631": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 180,
+          "y": 200
+        },
+        "z": 3,
+        "parent": "9c17329e-4f0e-498c-83c3-c039080890ae",
+        "embeds": [],
+        "isrelatedto": [
+          "dea40fb2-4fff-4269-b920-c2a835260ce2"
+        ]
       }
     }
   },
@@ -148,6 +180,34 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0"
+        }
+      }
+    },
+    "elasticSearchNATEIP": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {},
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "dea40fb2-4fff-4269-b920-c2a835260ce2"
+        }
+      }
+    },
+    "elasticSearchNAT": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "SubnetId": {
+          "Ref": "elasticSearchPublicSubnet"
+        },
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "elasticSearchNATEIP",
+            "AllocationId"
+          ]
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "7ee2e03c-6a8b-4142-80d6-ae4cb40ab631"
         }
       }
     }
