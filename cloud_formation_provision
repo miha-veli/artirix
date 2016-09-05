@@ -1312,6 +1312,9 @@
         },
         "VpcPeeringConnectionId": {
           "Ref": "EC2VPCPAB2P"
+        },
+        "DestinationCidrBlock": {
+          "Ref": "privateESCIDR"
         }
       },
       "Metadata": {
@@ -1328,6 +1331,9 @@
         },
         "VpcPeeringConnectionId": {
           "Ref": "EC2VPCPAB2P"
+        },
+        "DestinationCidrBlock": {
+          "Ref": "publicjumpCIDR"
         }
       },
       "Metadata": {
