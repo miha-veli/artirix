@@ -13,6 +13,7 @@
         },
         "z": 1,
         "embeds": [
+          "7d37bee4-c21b-4c5e-b642-1bfaaa7f1754",
           "aab61a65-9b7c-4906-80f2-8eaea438557f",
           "a3d5bcd2-27eb-4fa1-a482-660bd25e6d93",
           "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
@@ -62,8 +63,8 @@
           "height": 140
         },
         "position": {
-          "x": 160,
-          "y": 350
+          "x": 140,
+          "y": 470
         },
         "z": 2,
         "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
@@ -157,8 +158,8 @@
           "height": 60
         },
         "position": {
-          "x": 210,
-          "y": 390
+          "x": 190,
+          "y": 510
         },
         "z": 3,
         "parent": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
@@ -176,8 +177,8 @@
           "height": 60
         },
         "position": {
-          "x": 310,
-          "y": 390
+          "x": 290,
+          "y": 510
         },
         "z": 3,
         "parent": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
@@ -195,8 +196,8 @@
           "height": 60
         },
         "position": {
-          "x": 410,
-          "y": 390
+          "x": 390,
+          "y": 510
         },
         "z": 3,
         "parent": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0",
@@ -214,8 +215,8 @@
           "height": 60
         },
         "position": {
-          "x": 310,
-          "y": 550
+          "x": 290,
+          "y": 630
         },
         "z": 2,
         "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
@@ -247,6 +248,46 @@
           "id": "aab61a65-9b7c-4906-80f2-8eaea438557f"
         },
         "z": 6
+      },
+      "7d37bee4-c21b-4c5e-b642-1bfaaa7f1754": {
+        "size": {
+          "width": 129.18750484336726,
+          "height": 140
+        },
+        "position": {
+          "x": 570,
+          "y": 470
+        },
+        "z": 2,
+        "parent": "36f27655-c4ae-407e-9185-381293f6bb93",
+        "embeds": [
+          "edc623d7-287d-463c-8da4-d26285107199"
+        ]
+      },
+      "edc623d7-287d-463c-8da4-d26285107199": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 600,
+          "y": 510
+        },
+        "z": 3,
+        "parent": "7d37bee4-c21b-4c5e-b642-1bfaaa7f1754",
+        "embeds": [],
+        "isrelatedto": [
+          "7ee2e03c-6a8b-4142-80d6-ae4cb40ab631"
+        ]
+      },
+      "60aaa6dc-1a58-4292-ad04-e7c603e06e05": {
+        "source": {
+          "id": "7d37bee4-c21b-4c5e-b642-1bfaaa7f1754"
+        },
+        "target": {
+          "id": "86f119d8-9e7c-4a19-b17b-ed664b9e73f0"
+        },
+        "z": 2
       }
     }
   },
@@ -609,6 +650,52 @@
       "Metadata": {
         "AWS::CloudFormation::Designer": {
           "id": "aab61a65-9b7c-4906-80f2-8eaea438557f"
+        }
+      }
+    },
+    "elasticSearchPrivateRoutingTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "elasticSearchVPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "7d37bee4-c21b-4c5e-b642-1bfaaa7f1754"
+        }
+      }
+    },
+    "elasticSearchPrivateToInternet": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "elasticSearchPrivateRoutingTable"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "elasticSearchNAT"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "edc623d7-287d-463c-8da4-d26285107199"
+        }
+      }
+    },
+    "EC2SRTA3LBEE": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "elasticSearchPrivateRoutingTable"
+        },
+        "SubnetId": {
+          "Ref": "elasticSearchPrivateSubnet"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "60aaa6dc-1a58-4292-ad04-e7c603e06e05"
         }
       }
     }
