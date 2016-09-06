@@ -308,7 +308,7 @@
           "6bb5f648-cc4b-443d-a76d-ed727afa58d4",
           "a5f4cc39-425f-45e7-9bc7-b42ac1e0532d",
           "88279449-ada4-404c-8850-88f539acedbb",
-          "86f119d8-9e7c-4a19-b17b-ed664b9e73f0"
+          "9c17329e-4f0e-498c-83c3-c039080890ae"
         ],
         "ismemberof": [
           "b8e5368e-f7ee-4fc0-90a9-319d4c4382f5"
@@ -418,6 +418,9 @@
         "embeds": [],
         "ismemberof": [
           "551146b6-9da7-4507-b56a-169a698b8a74"
+        ],
+        "dependson": [
+          "f9c7fda5-b25a-42ba-9dba-ed7abe61e85a"
         ]
       },
       "f9c7fda5-b25a-42ba-9dba-ed7abe61e85a": {
@@ -593,6 +596,24 @@
           "id": "6764dff7-08a4-419e-8209-f3bbf436cfa2"
         },
         "z": 5
+      },
+      "a50fedce-c8c0-485f-a5c6-d28a94486d72": {
+        "source": {
+          "id": "d74a4cb2-752b-4ee2-b6f6-88e33c30dfd4"
+        },
+        "target": {
+          "id": "f9c7fda5-b25a-42ba-9dba-ed7abe61e85a"
+        },
+        "z": 4
+      },
+      "fff16b65-15e4-4459-b0f8-f3e3be770db3": {
+        "source": {
+          "id": "c47bdcca-003b-4704-b1b3-8bc050d64085"
+        },
+        "target": {
+          "id": "9c17329e-4f0e-498c-83c3-c039080890ae"
+        },
+        "z": 4
       }
     }
   },
@@ -1041,14 +1062,14 @@
             "InstanceProtocol": "TCP"
           }
         ],
-        "Subnets": [
-          {
-            "Ref": "elasticSearchPrivateSubnet"
-          }
-        ],
         "SecurityGroups": [
           {
             "Ref": "elbSG"
+          }
+        ],
+        "Subnets": [
+          {
+            "Ref": "elasticSearchPublicSubnet"
           }
         ]
       },
@@ -1170,7 +1191,10 @@
         "AWS::CloudFormation::Designer": {
           "id": "d74a4cb2-752b-4ee2-b6f6-88e33c30dfd4"
         }
-      }
+      },
+      "DependsOn": [
+        "jumpEIP"
+      ]
     },
     "EC2EIPA1IKOY": {
       "Type": "AWS::EC2::EIPAssociation",
