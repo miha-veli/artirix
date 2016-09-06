@@ -1,0 +1,9 @@
+- hosts: tag_application_elasticsearch-cluster:&tag_system_elasticsearch-node:&tag_env_testing
+  become: yes
+  gather_facts: no  
+  pre_tasks:
+    - name: 'install python2'
+      raw: sudo apt-get -y install python-simplejson
+ 
+  roles:
+    - es-cluster 
