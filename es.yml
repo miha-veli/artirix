@@ -1,0 +1,26 @@
+- hosts: tag_application_elasticsearch-cluster:&tag_system_elasticsearch-node:&tag_env_testing
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: 'install python2'
+      raw: sudo apt-get -y install python-simplejson
+
+- hosts: tag_application_elasticsearch-cluster:&tag_system_elasticsearch-node:&tag_env_testing
+  become: yes
+  gather_facts: yes
+  roles:
+    - { role: elasticsearch, es_instance_name: "node1", 
+        es_config: { discovery.zen.ping.unicast.hosts: "10.210.1.156, 10.210.1.111, 10.210.1.43",
+                     network.host: "_eth0_, _local_", 
+                     cluster.name: "testing",
+                     discovery.zen.ping.multicast.enabled: false,  
+                     http.port: 9200, 
+                     transport.tcp.port: 9300, 
+                     node.data: true, 
+                     node.master: true, 
+                     bootstrap.mlockall: true } }
+  vars:
+    es_major_version: "2.x"
+    es_version: "2.2.1"
+    es_heap_size: "1g"
+    es_cluster_name: "testing"
