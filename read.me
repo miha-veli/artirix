@@ -1,3 +1,24 @@
-This repository helps with the deployment of an ElasticSearch
-cluster. The provisioning is done using Cloudformation and the
-deployment is handled by Ansible.
+This repository can be used to deploy the necessary resources for an
+ElasticSearch cluster. The provisioning of the resources is handled by
+CloudFormation template. The deployment is handled by Ansible.
+
+CloudFormation does the following:
+1. Provisiong 2 VPCs one for ElasticSearch and a second one for a jump host.
+2. Provision public and private networks in the ES VPC and configures a managed
+NAT service for outgoing trafic.
+3. Provisions 3 instances in the private network that will host the ElasticSearch
+application
+4. Provisions routing tables for both the public and private networks and the 
+necessary routes
+5. Provision external facing ELB to loadbalance the traffic to the cluster
+6. Configure VPC peering between the Jump vpc and the ES VPC
+7. Provision an instance to serve as a jump host through which Ansible will deploy
+the ElasticSearch servers.
+
+Ansible uses the following repository to configure the servers:
+https://github.com/elastic/ansible-elasticsearch
+
+TODO: Currently the IPs of the servers are hardcoded in the configuration files
+of the ElasticSearch Cluster. This can be circumvented by using an Ansible
+template with Jinja filters but it will take some time to review the repository
+of Elastico in order to modify it properly.
